@@ -1,6 +1,8 @@
-﻿static class Extensions
+﻿using System.Text;
+
+static class Extensions
 {
-    public static int ToInt(this System.Text.StringBuilder sb)
+    public static int ToInt(this StringBuilder sb)
     {
         if (int.TryParse(sb.ToString(), out var value))
         {
@@ -22,7 +24,7 @@
 
     public static int GetIntFromStart(this string str)
     {
-        var stringBuilder = new System.Text.StringBuilder();
+        var stringBuilder = new StringBuilder();
         foreach (var character in str)
         {
             if (!char.IsDigit(character))
