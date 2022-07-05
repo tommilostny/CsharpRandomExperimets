@@ -12,6 +12,10 @@ BM("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs bcahoj");
 BM("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs bcdahoj");
 BM("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs bcdeahoj");
 BM("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs bcdea");
+BM("vsjahojdnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs bcdea");
+BM("vsjahodnjlvndsvnjldj najkavvjsahojnvhn ajjsdnkjdvnk jnahoassvsvsvs bcdea");
+BM("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahojassvsvsvs bcdea");
+
 
 //BM("\"vsjlvndsvnjldj najvhn ajjsdnkjdvnk jnahoassvsvsvs ajhoj\"");
 //BM("gusazzhdvisuzfrtguzhsdzufdsggzfsdzifsdzivszugzisdgvhisedgvzsgvzhshvbzugvhivizsegvzusgvzushgvzisgvzisgvzisgvisghivzszivgzsgvzisgvzusgzvusezuv");

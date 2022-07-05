@@ -52,18 +52,17 @@ public static class Extensions
 
     private static bool ContainsBruteForce<T>(this Span<T> span, ReadOnlySpan<T> value)
     {
-        int i = 0, j = 0;
-        while (i < span.Length)
+        for (int i = 0, j = 0; i < span.Length; i++)
         {
             if (!EqualityComparer<T>.Default.Equals(span[i], value[j]))
             {
                 j = 0;
+                continue;
             }
-            else if (++j == value.Length)
+            if (++j == value.Length)
             {
                 return true;
             }
-            i++;
         }
         return false;
     }
