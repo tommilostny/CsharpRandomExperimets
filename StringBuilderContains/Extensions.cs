@@ -19,7 +19,7 @@ public static class Extensions
             var copyCount = searchedLength < sbLength - i ? searchedLength : sbLength - i;
             stringBuilder.CopyTo(i, higher, copyCount);
 
-            if (chunk.ContainsBruteForce(value))
+            if (chunk.Contains(value))
             {
                 return true;
             }
@@ -50,7 +50,7 @@ public static class Extensions
         return false;
     }
 
-    private static bool ContainsBruteForce<T>(this Span<T> span, ReadOnlySpan<T> value)
+    private static bool Contains<T>(this Span<T> span, ReadOnlySpan<T> value)
     {
         for (int i = 0, j = 0; i < span.Length; i++)
         {

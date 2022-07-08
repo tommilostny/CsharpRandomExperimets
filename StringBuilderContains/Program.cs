@@ -5,6 +5,15 @@ using System.Text;
 //BenchmarkRunner.Run<Benchmarks>();
 //return;
 
+var sb = new StringBuilder("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs ahoj");
+
+var splitted = sb.Split('a');
+
+splitted.JoinInto(sb, ';');
+Console.WriteLine(sb);
+
+return;
+
 var searched = "ahoj";
 BM("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs ahoj");
 BM("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs bahoj");
