@@ -5,14 +5,36 @@ using System.Text;
 //BenchmarkRunner.Run<Benchmarks>();
 //return;
 
+//Console.WriteLine(Path.Combine("C:\\McRAI\\weby\\backup\\", "C:\\McRAI\\weby\\dentunit\\kalendar"));
+//return;
+
+    
 var sb = new StringBuilder("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs ahoj");
 
 var splitted = sb.Split('a');
 
+for (int i = 0; i < splitted.Count; i++)
+{
+    Console.Write('\'');
+    Console.Write(splitted[i]);
+    Console.WriteLine('\'');
+}
+
 splitted.JoinInto(sb, ';');
 Console.WriteLine(sb);
 
-return;
+var path = Path.Combine("tommi", "piedpiper", "s03e01.c");
+Console.WriteLine(path);
+Console.WriteLine(File.Exists(path));
+
+/*
+Console.WriteLine(path);
+Console.WriteLine(Regex.IsMatch(path, @"\\templates\\.+\\product_detail\.php"));
+
+path = "plugins/templates/Uploaded/product_detail.php";
+Console.WriteLine(path);
+Console.WriteLine(Regex.IsMatch(path, @"(\\|/)templates(\\|/).+(\\|/)product_detail\.php"));
+ */
 
 var searched = "ahoj";
 BM("vsjahodnjlvndsvnjldj najkavvjsanvhn ajjsdnkjdvnk jnahoassvsvsvs ahoj");

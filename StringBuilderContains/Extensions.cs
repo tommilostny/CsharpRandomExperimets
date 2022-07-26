@@ -4,22 +4,20 @@ namespace StringBuilderContains;
 
 public static class Extensions
 {
-    public static bool Contains(this StringBuilder stringBuilder, ReadOnlySpan<char> value)
+    public static bool Contains(this StringBuilder source, ReadOnlySpan<char> value)
     {
-        int searchedLength = value.Length;
-        int sbLength = stringBuilder.Length;
-        Span<char> chunk = stackalloc char[searchedLength << 1];
+        Span<char> window = stackalloc char[value.Length << 1];
 
-        for (int i = 0; i < sbLength; i += searchedLength)
+        for (int i = 0; i < source.Length; i += value.Length)
         {
-            Span<char> higher = chunk[searchedLength..];
-            higher.CopyTo(chunk);
-            higher.Clear();
+            Span<char> higherHalf = window[value.Length..];
+            higherHalf.CopyTo(window);
+            higherHalf.Clear();
 
-            var copyCount = searchedLength < sbLength - i ? searchedLength : sbLength - i;
-            stringBuilder.CopyTo(i, higher, copyCount);
+            var maxCopyCount = source.Length - i;
+            source.CopyTo(i, higherHalf, Math.Min(value.Length, maxCopyCount));
 
-            if (chunk.Contains(value))
+            if (window.IndexOf(value) != -1)
             {
                 return true;
             }
