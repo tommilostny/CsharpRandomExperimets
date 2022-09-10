@@ -12,33 +12,33 @@ var grid = new SudokuGrid(new byte[][]
     new byte[]{ 0, 0, 0, 0, 8, 0, 0, 7, 9 },
 });
 */
-var grid = new SudokuGrid(new byte[][]
+var grid = new Sudoku(new byte[][]
 {
-    new byte[]{ 5, 3, 0, 0, 7, 0, 0, 0, 0 },
-    new byte[]{ 6, 0, 0, 1, 9, 5, 0, 0, 0 },
-    new byte[]{ 0, 0, 8, 0, 0, 0, 0, 6, 0 },
-    new byte[]{ 8, 0, 0, 0, 6, 0, 0, 0, 3 },
-    new byte[]{ 4, 0, 0, 8, 0, 3, 0, 0, 1 },
-    new byte[]{ 7, 0, 0, 0, 2, 0, 0, 0, 6 },
-    new byte[]{ 0, 6, 0, 0, 0, 0, 2, 8, 0 },
-    new byte[]{ 0, 0, 0, 4, 1, 9, 0, 0, 5 },
-    new byte[]{ 0, 0, 0, 0, 8, 0, 0, 0, 0 },
+    new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    new byte[]{ 1, 0, 2, 0, 0, 0, 0, 0, 0 },
 });
 
-grid.Print();
+grid.PrintGrid();
 Console.WriteLine();
 grid.Solve();
 
-class SudokuGrid
+class Sudoku
 {
     private readonly byte[][] _grid;
 
-    public SudokuGrid(byte[][] grid)
+    public Sudoku(byte[][] grid)
     {
         _grid = grid;
     }
 
-    public void Print()
+    public void PrintGrid()
     {
         foreach (var row in _grid)
         {
@@ -96,7 +96,7 @@ class SudokuGrid
                 }
             }
         }
-        Print();
+        PrintGrid();
         Console.WriteLine("More?");
         Console.ReadKey();
     }

@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordsAdd", "WordsAdd\WordsA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringBuilderContains", "StringBuilderContains\StringBuilderContains.csproj", "{5508AC20-E130-43E7-9F48-76BF3598208A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver", "SudokuSolver\SudokuSolver.csproj", "{B78829B7-21F3-4609-8E13-AB9E67A79E4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SudokuSolver", "SudokuSolver\SudokuSolver.csproj", "{B78829B7-21F3-4609-8E13-AB9E67A79E4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hanoi", "Hanoi\Hanoi.csproj", "{184E0A69-EB68-4C6E-9E6A-E2524CE81FBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hanoi", "Hanoi\Hanoi.csproj", "{184E0A69-EB68-4C6E-9E6A-E2524CE81FBD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaltingProblem", "HaltingProblem\HaltingProblem.csproj", "{F72DA91F-20B4-4E18-921F-D94FA4CE6122}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CongruentRandomGenerator", "CongruentRandomGenerator\CongruentRandomGenerator.csproj", "{7926CAAF-1713-4C82-98E4-9C0745FB0EED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{184E0A69-EB68-4C6E-9E6A-E2524CE81FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{184E0A69-EB68-4C6E-9E6A-E2524CE81FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{184E0A69-EB68-4C6E-9E6A-E2524CE81FBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F72DA91F-20B4-4E18-921F-D94FA4CE6122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F72DA91F-20B4-4E18-921F-D94FA4CE6122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F72DA91F-20B4-4E18-921F-D94FA4CE6122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F72DA91F-20B4-4E18-921F-D94FA4CE6122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7926CAAF-1713-4C82-98E4-9C0745FB0EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7926CAAF-1713-4C82-98E4-9C0745FB0EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7926CAAF-1713-4C82-98E4-9C0745FB0EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7926CAAF-1713-4C82-98E4-9C0745FB0EED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

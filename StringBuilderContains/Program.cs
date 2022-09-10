@@ -90,5 +90,11 @@ void BM(string testStr)
     Console.WriteLine(sb.ToString().Contains(searched));
     Console.WriteLine((DateTime.Now - now).TotalMilliseconds);
 
+    Console.WriteLine("\nParallel");
+
+    now = DateTime.Now;
+    Console.WriteLine(sb.ContainsParallel(searched));
+    Console.WriteLine((DateTime.Now - now).TotalMilliseconds);
+
     Console.WriteLine("-------------------------------------------");
 }

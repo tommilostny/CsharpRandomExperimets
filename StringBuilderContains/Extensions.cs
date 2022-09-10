@@ -4,11 +4,41 @@ namespace StringBuilderContains;
 
 public static class Extensions
 {
-    public static bool Contains(this StringBuilder source, ReadOnlySpan<char> value)
+    //blbost, moc alokací :(
+    public static bool ContainsParallel(this StringBuilder source, ReadOnlySpan<char> value, StringComparison cmpType = StringComparison.Ordinal)
+    {
+        var cores = Environment.ProcessorCount;
+        var valueStr = value.ToString();
+
+        Span<char> sourceSpan = stackalloc char[source.Length];
+        source.CopyTo(0, sourceSpan, source.Length);
+
+        var tasks = new Task<bool>[cores];
+        var startIndex = 0;
+        var partLength = source.Length / cores;
+        var endIndex = partLength;
+
+        for (int i = 0; i < cores; i++)
+        {
+            string window = sourceSpan[startIndex..endIndex].ToString();
+
+            tasks[i] = Task.Run(() => window.Contains(valueStr, cmpType));
+            
+            startIndex = endIndex;
+            if (i == cores - 2)
+            {
+                partLength += source.Length - cores * partLength;
+            }
+            endIndex += partLength;
+        }
+        return tasks.Any(t => t.Result);
+    }
+
+    public static bool Contains(this StringBuilder source, ReadOnlySpan<char> value, StringComparison cmpType = StringComparison.Ordinal)
     {
         Span<char> window = stackalloc char[value.Length << 1];
 
-        for (int i = 0; i < source.Length; i += value.Length)
+        for (var i = 0; i < source.Length; i += value.Length)
         {
             Span<char> higherHalf = window[value.Length..];
             higherHalf.CopyTo(window);
@@ -17,7 +47,7 @@ public static class Extensions
             var maxCopyCount = source.Length - i;
             source.CopyTo(i, higherHalf, Math.Min(value.Length, maxCopyCount));
 
-            if (window.IndexOf(value) != -1)
+            if (((ReadOnlySpan<char>)window).Contains(value, cmpType))
             {
                 return true;
             }
@@ -41,23 +71,6 @@ public static class Extensions
             stringBuilder.CopyTo(i, higher, copyCount);
 
             if (chunk.ContainsRabinKarp(value))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static bool Contains<T>(this Span<T> span, ReadOnlySpan<T> value)
-    {
-        for (int i = 0, j = 0; i < span.Length; i++)
-        {
-            if (!EqualityComparer<T>.Default.Equals(span[i], value[j]))
-            {
-                j = 0;
-                continue;
-            }
-            if (++j == value.Length)
             {
                 return true;
             }
