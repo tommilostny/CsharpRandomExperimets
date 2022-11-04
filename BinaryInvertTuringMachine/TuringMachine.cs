@@ -2,8 +2,8 @@
 
 public abstract class TuringMachine
 {
-    protected uint _state = 1;
-    protected uint _tapeIndex = 0;
+    protected int _state = 1;
+    protected int _tapeIndex = 0;
     protected readonly char[] _tape;
 
     public TuringMachine(string? input, char[] alphabet)

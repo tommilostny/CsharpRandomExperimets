@@ -3,7 +3,8 @@
 public class BinaryInvertTuringMachine : TuringMachine
 {
     public BinaryInvertTuringMachine(string? input) : base(input, alphabet: new[]{ '0', '1' })
-    { }
+    {
+    }
 
     public override bool Run()
     {
