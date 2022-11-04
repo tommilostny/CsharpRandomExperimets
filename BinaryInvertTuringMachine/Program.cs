@@ -4,9 +4,8 @@ int selection;
 do
 {
     Console.WriteLine("Select Turing machine you wish to try:");
-    Console.WriteLine("0. End");
     Console.WriteLine("1. Binary number invert");
-    Console.WriteLine("2. Power of 2 'a's?");
+    Console.WriteLine("2. Word is from L = { a^(2^n) | n >= 0 }?");
     Console.WriteLine();
     try
     {
@@ -40,15 +39,22 @@ do
             try
             {
                 var tm2 = new PowerOf2AsTuringMachine(inputStr);
-                if (tm2.Run())
+                var result = tm2.Run();
+                Console.Write("Length of entered sequence ");
+                if (result)
                 {
-                    Console.WriteLine("Entered sequence is a power of 2.");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("is");
+                    Console.ResetColor();
                 }
                 else
                 {
-                    Console.WriteLine("Entered sequence is not a power of 2.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("is not");
+                    Console.ResetColor();
                 }
-                Console.WriteLine("TM tape state:");
+                Console.WriteLine(" a power of 2.");
+                Console.WriteLine("Turing machine tape:");
                 tm2.PrintTape();
             }
             catch (Exception ex)
@@ -58,5 +64,6 @@ do
             break;
     }
     Console.WriteLine();
+    Console.ReadKey();
 }
 while (selection != 0);
