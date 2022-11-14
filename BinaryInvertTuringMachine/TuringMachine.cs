@@ -13,12 +13,12 @@ public abstract class TuringMachine
 
         _tape = new char[input.Length + 2];
 
-        for (int j = 0; j < input.Length; j++)
+        for (int i = 0; i < input.Length; i++)
         {
-            var inputChar = input[j];
+            var inputChar = input[i];
             if (alphabet.Contains(inputChar))
             {
-                _tape[j + 1] = inputChar;
+                _tape[i + 1] = inputChar;
                 continue;
             }
             throw new ArgumentException($"'{inputChar}' is not from given alphabet.");
