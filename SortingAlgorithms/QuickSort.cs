@@ -4,13 +4,18 @@ public static class QuickSort
 {
     private static readonly Random _random = new();
 
+    /// <summary>
+    /// Async variant of the Quicksort algorithm. Memory inefficient with exponencial space complexity.
+    /// </summary>
+    /// <typeparam name="T">Comparable type (int, double, ...)</typeparam>
+    /// <param name="array">Array to be sorted. Result is stored here.</param>
     public static async Task SortAsync<T>(T[] array) where T : IComparable<T>
     {
         if (array.Length <= 1)
             return;
 
-        int pivotPos = _random.Next() % array.Length;
-        var pivot = array[pivotPos];
+        int pivotIndex = _random.Next() % array.Length;
+        var pivot = array[pivotIndex];
         var leCount = array.Count(x => x.CompareTo(pivot) <= 0) - 1;
 
         var lessEqual = new T[leCount];
@@ -19,7 +24,7 @@ public static class QuickSort
 
         for (int i = 0; i < array.Length; i++)
         {
-            if (i == pivotPos)
+            if (i == pivotIndex)
             {
                 continue;
             }
@@ -39,5 +44,36 @@ public static class QuickSort
         {
             array[i] = i != leCount ? (i < leCount ? lessEqual[i] : greater[i - leCount - 1]) : pivot;
         }
+    }
+
+    /// <summary>
+    /// In place variant using a Span.
+    /// Memory efficient.
+    /// </summary>
+    /// <typeparam name="T">Comparable type (int, double, ...)</typeparam>
+    /// <param name="array">Array span to be sorted. Result is stored in place here.</param>
+    public static void Sort<T>(Span<T> array) where T : IComparable<T>
+    {
+        if (array.Length <= 1)
+            return;
+
+        int pivotIndex = _random.Next() % array.Length;
+        T pivot = array[pivotIndex];
+        (array[pivotIndex], array[^1]) = (array[^1], pivot);
+
+        int i = -1;
+        for (int j = 0; j < array.Length - 1; j++)
+        {
+            if (array[j].CompareTo(pivot) <= 0)
+            {
+                i++;
+                (array[i], array[j]) = (array[j], array[i]);
+            }
+        }
+        pivotIndex = i + 1;
+        (array[pivotIndex], array[^1]) = (array[^1], array[pivotIndex]);
+
+        Sort(array[..pivotIndex]);
+        Sort(array[(pivotIndex + 1)..]);
     }
 }
