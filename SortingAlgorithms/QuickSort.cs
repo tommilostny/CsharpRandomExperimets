@@ -51,29 +51,27 @@ public static class QuickSort
     /// Memory efficient.
     /// </summary>
     /// <typeparam name="T">Comparable type (int, double, ...)</typeparam>
-    /// <param name="array">Array span to be sorted. Result is stored in place here.</param>
-    public static void Sort<T>(Span<T> array) where T : IComparable<T>
+    /// <param name="span">Array span to be sorted. Result is stored in place here.</param>
+    public static void Sort<T>(Span<T> span) where T : IComparable<T>
     {
-        if (array.Length <= 1)
+        if (span.Length <= 1)
             return;
 
-        int pivotIndex = _random.Next() % array.Length;
-        T pivot = array[pivotIndex];
-        (array[pivotIndex], array[^1]) = (array[^1], pivot);
-
-        int i = -1;
-        for (int j = 0; j < array.Length - 1; j++)
+        var i = _random.Next() % span.Length;
+        var pivot = span[i];
+        (span[i], span[^1]) = (span[^1], pivot);
+        i = -1;
+        
+        for (var j = 0; j < span.Length - 1; j++)
         {
-            if (array[j].CompareTo(pivot) <= 0)
+            if (span[j].CompareTo(pivot) <= 0)
             {
-                i++;
-                (array[i], array[j]) = (array[j], array[i]);
+                (span[++i], span[j]) = (span[j], span[i]);
             }
         }
-        pivotIndex = i + 1;
-        (array[pivotIndex], array[^1]) = (array[^1], array[pivotIndex]);
+        (span[++i], span[^1]) = (span[^1], span[i]);
 
-        Sort(array[..pivotIndex]);
-        Sort(array[(pivotIndex + 1)..]);
+        Sort(span[..i++]);
+        Sort(span[i..]);
     }
 }

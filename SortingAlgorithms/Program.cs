@@ -3,7 +3,7 @@ using System.Text.Json;
 
 //QuickSort.Sort(stackalloc int[]{ 1, 3, 9, 8, 2, 7, 5 });
 
-//await TestWithRandoms(infiniteRepeat: false, runSync: true, runAsync: false);
+await TestWithRandoms(infiniteRepeat: true, runSync: true, runAsync: false);
 await TestOnAVSPrimes();
 
 
