@@ -1,9 +1,7 @@
 ﻿using SortingAlgorithms;
 using System.Text.Json;
 
-//QuickSort.Sort(stackalloc int[]{ 1, 3, 9, 8, 2, 7, 5 });
-
-await TestWithRandoms(infiniteRepeat: true, runSync: true, runAsync: false);
+await TestWithRandoms(infiniteRepeat: true, runSync: true, runAsync: true);
 await TestOnAVSPrimes();
 
 
@@ -30,7 +28,7 @@ static async Task TestOnAVSPrimes()
     Console.WriteLine($"Loaded {primes.Length} (count: {count}) primes.\nSorting...");
     var startTime = DateTime.Now;
 
-    QuickSort.Sort(primes.AsSpan());
+    primes.AsSpan().QuickSort();
     
     var stopTime = DateTime.Now;
 
@@ -100,8 +98,8 @@ static async Task TestWithRandoms(bool infiniteRepeat, bool runAsync, bool runSy
     {
         var startTime = DateTime.Now;
 
-        await QuickSort.SortAsync(ints);
-        await QuickSort.SortAsync(doubles);
+        await ints.QuickSortAsync();
+        await doubles.QuickSortAsync();
 
         var stopTime = DateTime.Now;
 
@@ -115,8 +113,8 @@ static async Task TestWithRandoms(bool infiniteRepeat, bool runAsync, bool runSy
     {
         var startTime = DateTime.Now;
 
-        QuickSort.Sort(intsCopy.AsSpan());
-        QuickSort.Sort(doublesCopy.AsSpan());
+        intsCopy.AsSpan().QuickSort();
+        doublesCopy.AsSpan().QuickSort();
 
         var stopTime = DateTime.Now;
 
