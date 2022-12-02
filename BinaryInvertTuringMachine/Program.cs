@@ -1,10 +1,13 @@
 ﻿using TuringMachines;
 
 int selection;
-do
+var tm1 = new BinaryInvertTuringMachine();
+var tm2 = new PowerOf2AsTuringMachine();
+
+while (true)
 {
     Console.WriteLine("Select Turing machine you wish to try:");
-    Console.WriteLine("1. Binary number invert");
+    Console.WriteLine("1. Binary number negative/positive to positive/negative");
     Console.WriteLine("2. Word is from L = { a^(2^n) | n >= 0 }?");
     Console.WriteLine();
     try
@@ -13,7 +16,7 @@ do
     }
     catch
     {
-        selection = 0;
+        return;
     }
     string? inputStr;
     switch (selection)
@@ -23,8 +26,7 @@ do
             inputStr = Console.ReadLine();
             try
             {
-                var tm1 = new BinaryInvertTuringMachine(inputStr);
-                tm1.Run();
+                tm1.Run(inputStr);
                 tm1.PrintTape();
             }
             catch (Exception ex)
@@ -38,8 +40,7 @@ do
             inputStr = Console.ReadLine();
             try
             {
-                var tm2 = new PowerOf2AsTuringMachine(inputStr);
-                var result = tm2.Run();
+                var result = tm2.Run(inputStr);
                 Console.Write("Length of entered sequence ");
                 if (result)
                 {
@@ -62,8 +63,10 @@ do
                 Console.Error.WriteLine(ex.Message);
             }
             break;
+
+        default:
+            return;
     }
     Console.WriteLine();
     Console.ReadKey();
 }
-while (selection != 0);
