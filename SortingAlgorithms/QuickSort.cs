@@ -2,6 +2,11 @@
 
 public static partial class SortExtensions
 {
+    public static void QuickSort<T>(this T[] array) where T : IComparable<T>
+    {
+        array.AsSpan().QuickSort();
+    }
+
     /// <summary>
     /// In place variant using a Span.
     /// Memory efficient.

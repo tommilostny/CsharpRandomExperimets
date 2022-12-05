@@ -1,7 +1,7 @@
 ﻿using SortingAlgorithms;
 using System.Text.Json;
 
-await TestWithRandoms(infiniteRepeat: true, runSync: true, runAsync: true);
+await TestWithRandoms(infiniteRepeat: true, runSync: true, runAsync: false);
 await TestOnAVSPrimes();
 
 
@@ -28,7 +28,7 @@ static async Task TestOnAVSPrimes()
     Console.WriteLine($"Loaded {primes.Length} (count: {count}) primes.\nSorting...");
     var startTime = DateTime.Now;
 
-    primes.AsSpan().QuickSort();
+    primes.QuickSort();
     
     var stopTime = DateTime.Now;
 
