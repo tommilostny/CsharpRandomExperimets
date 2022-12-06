@@ -1,17 +1,17 @@
 ﻿namespace TuringMachines;
 
-public sealed class BinaryInvertTuringMachine : TuringMachine
+public sealed class BinaryInvertTuringMachine : TuringMachine<int, char>
 {
-    protected override Lazy<IReadOnlyCollection<char>> Alphabet { get; } = new(new[] { '0', '1' });
+    protected override IReadOnlySet<char> Alphabet { get; } = new HashSet<char> { '0', '1' };
 
-    protected override int InitialState => 1;
+    protected override int InitialState { get; } = 1;
 
-    protected override Lazy<IReadOnlyDictionary<int, bool>> FinalStates { get; } = new(new Dictionary<int, bool>
+    protected override IReadOnlyDictionary<int, bool> FinalStates { get; } = new Dictionary<int, bool>
     {
         { 7, true },
-    });
+    };
 
-    protected override Lazy<IReadOnlyDictionary<(int, char), TMAction>> TransitionFunctions { get; } = new(new Dictionary<(int, char), TMAction>
+    protected override IReadOnlyDictionary<(int, char), TMAction> TransitionFunctions { get; } = new Dictionary<(int, char), TMAction>
     {
         { (1, Blank), new MoveRight { ToState = 2 } },
 
@@ -31,5 +31,5 @@ public sealed class BinaryInvertTuringMachine : TuringMachine
         { (6, '0'), new MoveLeft { ToState = 6 } },
         { (6, '1'), new MoveLeft { ToState = 6 } },
         { (6, Blank), new MoveRight { ToState = 7 } },
-    });
+    };
 }

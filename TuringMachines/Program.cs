@@ -26,7 +26,7 @@ while (true)
             inputStr = Console.ReadLine();
             try
             {
-                tm1.Run(inputStr);
+                tm1.Run(inputStr?.ToArray());
                 tm1.PrintTape();
             }
             catch (Exception ex)
@@ -40,7 +40,7 @@ while (true)
             inputStr = Console.ReadLine();
             try
             {
-                var result = tm2.Run(inputStr);
+                var result = tm2.Run(inputStr?.ToArray());
                 Console.Write("Length of entered sequence ");
                 if (result)
                 {
