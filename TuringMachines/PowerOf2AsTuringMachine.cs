@@ -3,18 +3,18 @@
 /// <summary>
 /// Turing machine that accepts words from language L = { a^(2^n) | n >= 0 }.
 /// </summary>
-public sealed class PowerOf2AsTuringMachine : TuringMachine<int, char>
+public sealed class PowerOf2AsTuringMachine : TuringMachine<byte, char>
 {
     protected override IReadOnlySet<char> Alphabet { get; } = new HashSet<char> { 'a' };
 
-    protected override int InitialState { get; } = 1;
+    protected override byte InitialState { get; } = 1;
 
-    protected override IReadOnlyDictionary<int, bool> FinalStates { get; } = new Dictionary<int, bool>
+    protected override IReadOnlyDictionary<byte, bool> FinalStates { get; } = new Dictionary<byte, bool>
     {
         { 7, true }, { 8, false },
     };
 
-    protected override IReadOnlyDictionary<(int, char), TMAction> TransitionFunctions { get; } = new Dictionary<(int, char), TMAction>
+    protected override IReadOnlyDictionary<(byte, char), TMAction> TransitionFunctions { get; } = new Dictionary<(byte, char), TMAction>
     {
         { (1, Blank), new MoveRight { ToState = 2 } },
 
