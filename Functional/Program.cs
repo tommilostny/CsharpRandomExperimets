@@ -5,19 +5,22 @@ static void Print<T>(T value) => Console.WriteLine(value);
 static void PrintArray<T>(T[] list) => Console.WriteLine(JsonSerializer.Serialize(list));
 
 
-static int Lenght<T>(T[] list) => list switch
+static int Length<T>(T[] list) => list switch
 {
     [] => 0,
-    [_, ..var xs] => 1 + Lenght(xs)
+    [_, ..var xs] => 1 + Length(xs)
 };
 
 static T[] Merge<T>(T[] x, T[] y) where T : IComparable => (x, y) switch
 {
     ([], var l2) => l2,
     (var l1, []) => l1,
-    ([var h1, ..var t1], [var h2, ..var t2]) => h1.CompareTo(h2) < 0
-        ? Merge(t1, y).Prepend(h1).ToArray()
-        : Merge(x, t2).Prepend(h2).ToArray()
+    ([var h1, ..var t1], [var h2, ..var t2]) =>
+    (
+        h1.CompareTo(h2) < 0
+            ? Merge(t1, y).Prepend(h1).ToArray()
+            : Merge(x, t2).Prepend(h2).ToArray()
+    )
 };
 
 static T Factorial<T>(T n) where T : IBinaryInteger<T> => n switch
@@ -58,10 +61,10 @@ static T SumList<T>(T[] list) where T : INumber<T> => list switch
     [var x, ..var xs] => x + SumList(xs)
 };
 
-static T[] Concat<T>(params T[][] lists) => lists switch
+static T[] Concatenate<T>(params T[][] lists) => lists switch
 {
     [] => Array.Empty<T>(),
-    [var xs, ..var xss] => xs.Concat(Concat(xss)).ToArray()
+    [var xs, ..var xss] => xs.Concat(Concatenate(xss)).ToArray()
 };
 
 static T[] SquareAll<T>(T[] list) where T : IMultiplyOperators<T,T,T> => list switch
@@ -73,11 +76,11 @@ static T[] SquareAll<T>(T[] list) where T : IMultiplyOperators<T,T,T> => list sw
 static int[] LengthAll<T>(params T[][] lists) => lists switch
 {
     [] => Array.Empty<int>(),
-    [var xs, ..var xss] => LengthAll(xss).Prepend(Lenght(xs)).ToArray()
+    [var xs, ..var xss] => LengthAll(xss).Prepend(Length(xs)).ToArray()
 };
 
 
-Print(Lenght(Enumerable.Range(1, 200).ToArray()));
+Print(Length(Enumerable.Range(1, 200).ToArray()));
 
 var res1 = Merge(new[] { 5, 11, 12, 15, 16 }, new[] { 2, 10, 13, 15, 20 });
 
@@ -104,7 +107,7 @@ PrintArray(res4);
 Print(SumList(res4));
 Print(SumList(new[] { 1, 2, 3 }));
 
-var res5 = Concat(
+var res5 = Concatenate(
     Enumerable.Range(1, 5).ToArray(),
     Enumerable.Range(69, 10).ToArray(),
     Enumerable.Range(420, 5).ToArray()
