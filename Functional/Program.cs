@@ -79,6 +79,29 @@ static int[] LengthAll<T>(params T[][] lists) => lists switch
     [var xs, ..var xss] => LengthAll(xss).Prepend(Length(xs)).ToArray()
 };
 
+static T MaxMatrix<T>(T[][] list) where T : INumber<T> => list.Max(xs => SumList(xs))!;
+
+static T[] DropEvery<T>(T[] list, int i) => list switch
+{
+    [] => Array.Empty<T>(),
+    var xs => xs.Take(i - 1).Concat(DropEvery(xs.Skip(i).ToArray(), i)).ToArray()
+};
+
+static T[] DropEvery_<T>(T[] list, int i)
+{
+    return list switch
+    {
+        [] => Array.Empty<T>(),
+        var xs => Helper(xs, i)
+    };
+
+    T[] Helper(T[] list, int k) => (list, k) switch
+    {
+        ([], _) => Array.Empty<T>(),
+        ([_, .. var xs], 1) => Helper(xs, i),
+        ([var x, .. var xs], _) => Helper(xs, k - 1).Prepend(x).ToArray()
+    };
+}
 
 Print(Length(Enumerable.Range(1, 200).ToArray()));
 
@@ -121,3 +144,13 @@ PrintArray(SquareAll(res2));
 
 PrintArray(LengthAll(res4, res1, res3, res5));
 PrintArray(LengthAll(res2));
+
+Print(MaxMatrix(new int[][]
+{
+    new[] { 1, 2, 3,},
+    new[] { 8, 1, 1 },
+    new[] { 6, 2, 1 },
+}));
+
+PrintArray(DropEvery(Enumerable.Range(1, 8).ToArray(), 3));
+PrintArray(DropEvery_(Enumerable.Range(1, 8).ToArray(), 3));
