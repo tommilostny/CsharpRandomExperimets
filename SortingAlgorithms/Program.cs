@@ -1,12 +1,27 @@
 ﻿using SortingAlgorithms;
 using System.Text.Json;
 
+const int runs = 4;
+
+for (int i = 0; i < runs; i++)
+    await TestOnAVSPrimes("QUICKSORT");
+for (int i = 0; i < runs; i++)
+    await TestOnAVSPrimes("LINEAR ARRAY SORT");
+
 await TestWithRandoms(infiniteRepeat: true, runSync: true, runAsync: false);
-await TestOnAVSPrimes();
 
 
-static async Task TestOnAVSPrimes()
+static async Task TestOnAVSPrimes(string algorithm)
 {
+    Action<int[]>? sortingAlg = algorithm switch
+    {
+        "QUICKSORT" => SortExtensions.QuickSort,
+        "LINEAR ARRAY SORT" => SortExtensions.LinearSort,
+        _ => null
+    };
+    if (sortingAlg is null)
+        return;
+
     int[] primes;
     int count = 0;
     Console.WriteLine("Loading primes...");
@@ -25,14 +40,14 @@ static async Task TestOnAVSPrimes()
         }
     }
 
-    Console.WriteLine($"Loaded {primes.Length} (count: {count}) primes.\nSorting...");
+    Console.WriteLine($"Loaded {primes.Length} (count: {count}) primes.");
     var startTime = DateTime.Now;
 
-    primes.QuickSort();
+    sortingAlg(primes);
     
     var stopTime = DateTime.Now;
 
-    Console.Write($"Numbers sorted in ");
+    Console.Write($"{algorithm}: sorted in ");
     Console.ForegroundColor = ConsoleColor.Green;
     Console.Write((stopTime - startTime).TotalMilliseconds);
     Console.ResetColor();
@@ -66,7 +81,7 @@ static async Task TestWithRandoms(bool infiniteRepeat, bool runAsync, bool runSy
         Console.WriteLine(e.Message);
         goto start;
     }
-    var upperBound = 100;//random.Next();
+    var upperBound = 2 * numbers;//random.Next();
     ints = Enumerable.Range(1, numbers).Select(x => random.Next() % upperBound).ToArray();
     doubles = ints.Select(x => Convert.ToDouble(x) + random.NextDouble()).ToArray();
 
@@ -103,7 +118,7 @@ static async Task TestWithRandoms(bool infiniteRepeat, bool runAsync, bool runSy
 
         var stopTime = DateTime.Now;
 
-        Console.Write($"\nASYNC: {ints.Length} int and {doubles.Length} double numbers sorted in ");
+        Console.Write($"\nASYNC QUICKSORT: {ints.Length} int and {doubles.Length} double numbers sorted in ");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.Write((stopTime - startTime).TotalMilliseconds);
         Console.ResetColor();
@@ -111,14 +126,39 @@ static async Task TestWithRandoms(bool infiniteRepeat, bool runAsync, bool runSy
     }
     if (runSync)
     {
+        var intsCopy2 = new int[intsCopy.Length];
+        intsCopy.CopyTo(intsCopy2, 0);
+
+
         var startTime = DateTime.Now;
-
-        intsCopy.AsSpan().QuickSort();
-        doublesCopy.AsSpan().QuickSort();
-
+        intsCopy2.LinearSort();
         var stopTime = DateTime.Now;
+        Console.Write($"LINEAR ARRAY SORT: {intsCopy2.Length} int numbers sorted in ");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write((stopTime - startTime).TotalMilliseconds);
+        Console.ResetColor();
+        Console.WriteLine(" ms\n");
+        if (numbers <= 100)
+        {
+            Console.WriteLine(JsonSerializer.Serialize(intsCopy2));
+            Console.WriteLine();
+        }
 
-        Console.Write($"SYNC: {ints.Length} int and {doubles.Length} double numbers sorted in ");
+
+        startTime = DateTime.Now;
+        intsCopy.AsSpan().QuickSort();
+        stopTime = DateTime.Now;
+        Console.Write($"SYNC QUICKSORT: {intsCopy.Length} int numbers sorted in ");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write((stopTime - startTime).TotalMilliseconds);
+        Console.ResetColor();
+        Console.WriteLine(" ms\n");
+
+
+        startTime = DateTime.Now;
+        doublesCopy.AsSpan().QuickSort();
+        stopTime = DateTime.Now;
+        Console.Write($"SYNC QUICKSORT: {doublesCopy.Length} double numbers sorted in ");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.Write((stopTime - startTime).TotalMilliseconds);
         Console.ResetColor();
